@@ -88,7 +88,7 @@ cargo bench -p broken-app --bench baseline
 - `baseline_before.txt`, `baseline_after.txt`, `bench_comparison.md`
 - `flamegraph.svg`, `flamegraph_hotspots.txt`, `perf_report.txt`
 
-## Чеклист перед отправкой
+## Чеклист
 
 - [x] `cargo build --workspace` / `cargo test -p broken-app` — OK
 - [x] Регрессионные тесты на найденные баги
