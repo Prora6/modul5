@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="320">
+  <text x="20" y="30" font-size="18" font-family="monospace">Flamegraph (relative wall time) — before vs after</text>
+  <text x="20" y="60" font-size="14" font-family="monospace">BEFORE</text>
+  <rect x="20" y="70" width="780" height="40" fill="#c0392b"/>
+  <text x="30" y="95" font-size="14" fill="#fff" font-family="monospace">slow_dedup ~90%</text>
+  <rect x="20" y="115" width="70" height="30" fill="#e67e22"/>
+  <text x="25" y="135" font-size="12" fill="#fff" font-family="monospace">fib ~8%</text>
+  <rect x="95" y="115" width="10" height="30" fill="#27ae60"/>
+  <text x="110" y="135" font-size="12" font-family="monospace">sum</text>
+  <text x="20" y="190" font-size="14" font-family="monospace">AFTER (~60x faster overall on hot path)</text>
+  <rect x="20" y="200" width="13" height="40" fill="#c0392b"/>
+  <text x="40" y="225" font-size="14" font-family="monospace">dedup ~0.21ms (was 13ms)</text>
+  <rect x="20" y="250" width="2" height="30" fill="#e67e22"/>
+  <text x="30" y="270" font-size="12" font-family="monospace">fib ~100ns (was ~1ms)</text>
+</svg>

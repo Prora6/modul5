@@ -1,0 +1,51 @@
+# Hotspots / flamegraph (текстовый отчёт)
+
+## До оптимизации (из baseline_before.txt, release)
+
+Горячие пути по времени wall-clock (3 прогона):
+
+| Функция     | Время (типично) | Доля / причина |
+|-------------|-----------------|----------------|
+| slow_dedup  | ~12.7–13.9 ms   | O(n^2) поиск + sort на каждой вставке |
+| slow_fib    | ~0.9–1.1 ms     | экспоненциальная рекурсия fib(28) |
+| sum_even    | ~25–36 us       | линейный проход (после фикса UB) |
+
+ASCII flamegraph (до):
+
+```
+100% wall
+ ├── slow_dedup (~90%)
+ │    ├── nested linear scan of out
+ │    └── sort_unstable on every insert
+ ├── slow_fib (~8%)
+ │    └── recurse(n-1) + recurse(n-2)
+ └── sum_even (~0.2%)
+      └── filter even + sum
+```
+
+## После оптимизации (из baseline_after.txt)
+
+| Функция          | Время (типично) | Ускорение |
+|------------------|-----------------|-----------|
+| slow_dedup       | ~210–222 us     | ~60x      |
+| slow_fib         | ~100 ns         | ~10_000x  |
+| sum_even         | ~23–27 us       | ~без изм. |
+| slow_dedup_large | ~3.0 ms (50k)   | —         |
+| slow_fib_large   | ~200 ns (n=90)  | —         |
+
+ASCII flamegraph (после):
+
+```
+100% wall (тот же сценарий)
+ ├── slow_dedup (~88%)
+ │    ├── HashSet::insert
+ │    └── sort_unstable once
+ ├── sum_even (~11%)
+ └── slow_fib (~0.04%)
+      └── O(n) loop
+```
+
+## perf на demo (после)
+
+demo слишком короткий: семплы в основном kernel/startup (см. perf_report.txt).
+Узкие места подтверждаем бенчмарками baseline, а не коротким demo.

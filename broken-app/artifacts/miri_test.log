@@ -1,0 +1,21 @@
+Preparing a sysroot for Miri (target: x86_64-unknown-linux-gnu)... done
+   Compiling broken-app v0.1.0 (/mnt/d/Yandex Rust/modul5/broken-app)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.29s
+     Running tests/integration.rs (/tmp/modul5-target/miri/x86_64-unknown-linux-gnu/debug/build/broken-app/5c4a6f44f8cf670f/out/integration-5c4a6f44f8cf670f)
+
+running 12 tests
+test average_positive_empty_and_all_negative ... ok
+test averages_only_positive ... ok
+test counts_non_zero_bytes ... ok
+test dedup_and_fib_sanity ... ok
+test dedup_preserves_uniques ... ok
+test fib_small_numbers ... ok
+test normalize_simple ... ok
+test normalize_tabs_and_newlines ... ok
+test race_increment_is_correct ... ok
+test sums_even_empty ... ok
+test sums_even_numbers ... ok
+test use_after_free_is_safe ... ok
+
+test result: ok. 12 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 2.27s
+

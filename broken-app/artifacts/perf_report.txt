@@ -1,0 +1,80 @@
+# To display the perf.data header info, please use --header/--header-only options.
+#
+#
+# Total Lost Samples: 0
+#
+# Samples: 8  of event 'cpu/cycles/P'
+# Event count (approx.): 2226616
+#
+# Overhead  Command  Shared Object      Symbol                              
+# ........  .......  .................  ....................................
+#
+    24.07%  demo     [kernel.kallsyms]  [k] kmem_cache_alloc_noprof
+            |
+            ---kmem_cache_alloc_noprof
+               vm_area_dup
+               __split_vma
+               vma_modify
+               vma_modify_flags
+               mprotect_fixup
+               do_mprotect_pkey
+               __x64_sys_mprotect
+               x64_sys_call
+               do_syscall_64
+               entry_SYSCALL_64_after_hwframe
+               __mprotect
+               std::rt::lang_start_internal
+               main
+               call_init (inlined)
+               __libc_start_main_impl (inlined)
+               _start
+
+    20.20%  demo     [kernel.kallsyms]  [k] __do_sys_prlimit64
+            |
+            ---__do_sys_prlimit64
+               x64_sys_call
+               do_syscall_64
+               entry_SYSCALL_64_after_hwframe
+               __getrlimit64 (inlined)
+               dl_main
+               _dl_sysdep_start
+               _dl_start_final (inlined)
+               _dl_start
+               _dl_start_user
+
+    16.63%  demo     [kernel.kallsyms]  [k] __list_del_entry_valid_or_report
+            |
+            ---__list_del_entry_valid_or_report
+               __rmqueue_pcplist
+               get_page_from_freelist
+               __alloc_frozen_pages_noprof
+               alloc_pages_mpol
+               vma_alloc_folio_noprof
+               do_fault
+               __handle_mm_fault
+               handle_mm_fault
+               do_user_addr_fault
+               exc_page_fault
+               asm_exc_page_fault
+               _dl_relocate_object_no_relro
+               _dl_protect_relro (inlined)
+               _dl_relocate_object
+               rtld_timer_stop (inlined)
+               rtld_timer_accum (inlined)
+               dl_main
+               _dl_sysdep_start
+               _dl_start_final (inlined)
+               _dl_start
+               _dl_start_user
+
+    13.01%  demo     [kernel.kallsyms]  [k] mod_memcg_lruvec_state
+            |
+            ---mod_memcg_lruvec_state
+               __lruvec_stat_mod_folio
+               __folio_mod_stat
+               folio_add_new_anon_rmap
+               do_wp_page
+               __handle_mm_fault
+               handle_mm_fault
+               do_user_addr_fault
+               exc_page_fault

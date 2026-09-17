@@ -1,0 +1,95 @@
+==993== Memcheck, a memory error detector
+==993== Copyright (C) 2002-2024, and GNU GPL'd, by Julian Seward et al.
+==993== Using Valgrind-3.26.0 and LibVEX; rerun with -h for copyright info
+==993== Command: /tmp/modul5-target/debug/deps/integration-9195866b2138f597
+==993== 
+
+running 12 tests
+test average_positive_empty_and_all_negative ... ok
+test fib_small_numbers ... ok
+test normalize_simple ... ok
+test averages_only_positive ... ok
+test counts_non_zero_bytes ... ok
+test dedup_preserves_uniques ... ok
+test dedup_and_fib_sanity ... ok
+test normalize_tabs_and_newlines ... ok
+test sums_even_empty ... ok
+test race_increment_is_correct ... ok
+test sums_even_numbers ... ok
+test use_after_free_is_safe ... ok
+
+test result: ok. 12 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.17s
+
+==993== 
+==993== HEAP SUMMARY:
+==993==     in use at exit: 592 bytes in 2 blocks
+==993==   total heap usage: 935 allocs, 933 frees, 107,634 bytes allocated
+==993== 
+==993== 48 bytes in 1 blocks are possibly lost in loss record 1 of 2
+==993==    at 0x4943858: malloc (vg_replace_malloc.c:447)
+==993==    by 0x40B73FE: alloc (unix.rs:14)
+==993==    by 0x40B73FE: alloc_impl (alloc.rs:151)
+==993==    by 0x40B73FE: allocate (alloc.rs:214)
+==993==    by 0x40B73FE: {closure#0}<std::thread::thread::Inner, std::alloc::System> (sync.rs:814)
+==993==    by 0x40B73FE: allocate_for_layout<core::mem::maybe_uninit::MaybeUninit<std::thread::thread::Inner>, alloc::sync::{impl#17}::new_uninit_in::{closure_env#0}<std::thread::thread::Inner, std::alloc::System>, fn(*mut u8) -> *mut alloc::sync::ArcInner<core::mem::maybe_uninit::MaybeUninit<std::thread::thread::Inner>>> (sync.rs:2185)
+==993==    by 0x40B73FE: new_uninit_in<std::thread::thread::Inner, std::alloc::System> (sync.rs:812)
+==993==    by 0x40B73FE: <std::thread::thread::Thread>::new (thread.rs:102)
+==993==    by 0x40C4F79: std::thread::current::init_current (current.rs:294)
+==993==    by 0x40ABD9F: current_or_unnamed (current.rs:251)
+==993==    by 0x40ABD9F: <std::sync::mpmc::context::Context>::new (context.rs:72)
+==993==    by 0x404090A: __rust_std_internal_init_fn (context.rs:43)
+==993==    by 0x404090A: call_once<fn() -> core::cell::Cell<core::option::Option<std::sync::mpmc::context::Context>>, ()> (function.rs:250)
+==993==    by 0x404090A: unwrap_or_else<core::cell::Cell<core::option::Option<std::sync::mpmc::context::Context>>, fn() -> core::cell::Cell<core::option::Option<std::sync::mpmc::context::Context>>> (option.rs:1065)
+==993==    by 0x404090A: <std::sys::thread_local::native::lazy::Storage<core::cell::Cell<core::option::Option<std::sync::mpmc::context::Context>>, ()>>::get_or_init_slow::<<std::sync::mpmc::context::Context>::with::CONTEXT::__rust_std_internal_init_fn> (lazy.rs:80)
+==993==    by 0x40596E0: get_or_init<core::cell::Cell<core::option::Option<std::sync::mpmc::context::Context>>, (), fn() -> core::cell::Cell<core::option::Option<std::sync::mpmc::context::Context>>> (lazy.rs:62)
+==993==    by 0x40596E0: {closure#0} (mod.rs:97)
+==993==    by 0x40596E0: call_once<std::sync::mpmc::context::{impl#0}::with::CONTEXT::{constant#0}::{closure_env#0}, (core::option::Option<&mut core::option::Option<core::cell::Cell<core::option::Option<std::sync::mpmc::context::Context>>>>)> (function.rs:250)
+==993==    by 0x40596E0: try_with<core::cell::Cell<core::option::Option<std::sync::mpmc::context::Context>>, std::sync::mpmc::context::{impl#0}::with::{closure_env#1}<std::sync::mpmc::list::{impl#3}::recv::{closure_env#1}<test::event::CompletedTest>, ()>, ()> (local.rs:462)
+==993==    by 0x40596E0: with<std::sync::mpmc::list::{impl#3}::recv::{closure_env#1}<test::event::CompletedTest>, ()> (context.rs:53)
+==993==    by 0x40596E0: <std::sync::mpmc::list::Channel<test::event::CompletedTest>>::recv (list.rs:442)
+==993==    by 0x4066392: recv_deadline<test::event::CompletedTest> (mod.rs:1149)
+==993==    by 0x4066392: recv_timeout<test::event::CompletedTest> (mod.rs:1081)
+==993==    by 0x4066392: recv_timeout<test::event::CompletedTest> (mpsc.rs:941)
+==993==    by 0x4066392: run_tests<test::console::run_tests_console::{closure_env#2}> (lib.rs:470)
+==993==    by 0x4066392: test::console::run_tests_console (console.rs:328)
+==993==    by 0x40521DA: test_main_inner<test::test_main_static::{closure_env#0}> (lib.rs:170)
+==993==    by 0x40521DA: test::test_main_static (lib.rs:195)
+==993==    by 0x403E992: integration::main (integration.rs:1)
+==993==    by 0x403E5DA: <fn() as core::ops::function::FnOnce<()>>::call_once (library/core/src/ops/function.rs:250)
+==993==    by 0x403E4FD: std::sys::backtrace::__rust_begin_short_backtrace::<fn(), ()> (library/std/src/sys/backtrace.rs:166)
+==993==    by 0x403E590: std::rt::lang_start::<()>::{closure#0} (library/std/src/rt.rs:206)
+==993== 
+==993== 544 bytes in 1 blocks are still reachable in loss record 2 of 2
+==993==    at 0x4943858: malloc (vg_replace_malloc.c:447)
+==993==    by 0x40C9C89: alloc (alloc.rs:101)
+==993==    by 0x40C9C89: alloc_impl_runtime (alloc.rs:210)
+==993==    by 0x40C9C89: alloc_impl (alloc.rs:332)
+==993==    by 0x40C9C89: allocate (alloc.rs:449)
+==993==    by 0x40C9C89: try_new_uninit_in<alloc::collections::btree::node::LeafNode<usize, std::sys::pal::unix::stack_overflow::thread_info::ThreadInfo>, alloc::alloc::Global> (boxed.rs:614)
+==993==    by 0x40C9C89: new_uninit_in<alloc::collections::btree::node::LeafNode<usize, std::sys::pal::unix::stack_overflow::thread_info::ThreadInfo>, alloc::alloc::Global> (boxed.rs:581)
+==993==    by 0x40C9C89: new<usize, std::sys::pal::unix::stack_overflow::thread_info::ThreadInfo, alloc::alloc::Global> (node.rs:87)
+==993==    by 0x40C9C89: new_leaf<usize, std::sys::pal::unix::stack_overflow::thread_info::ThreadInfo, alloc::alloc::Global> (node.rs:225)
+==993==    by 0x40C9C89: insert_entry<usize, std::sys::pal::unix::stack_overflow::thread_info::ThreadInfo, alloc::alloc::Global> (entry.rs:452)
+==993==    by 0x40C9C89: insert<usize, std::sys::pal::unix::stack_overflow::thread_info::ThreadInfo, alloc::alloc::Global> (entry.rs:426)
+==993==    by 0x40C9C89: insert<usize, std::sys::pal::unix::stack_overflow::thread_info::ThreadInfo, alloc::alloc::Global> (map.rs:1052)
+==993==    by 0x40C9C89: std::sys::pal::unix::stack_overflow::thread_info::set_current_info (thread_info.rs:122)
+==993==    by 0x40C2E0F: init (stack_overflow.rs:179)
+==993==    by 0x40C2E0F: init (mod.rs:39)
+==993==    by 0x40C2E0F: init (rt.rs:118)
+==993==    by 0x40C2E0F: {closure#0} (rt.rs:173)
+==993==    by 0x40C2E0F: do_call<std::rt::lang_start_internal::{closure_env#0}, isize> (panicking.rs:576)
+==993==    by 0x40C2E0F: catch_unwind<isize, std::rt::lang_start_internal::{closure_env#0}> (panicking.rs:544)
+==993==    by 0x40C2E0F: catch_unwind<std::rt::lang_start_internal::{closure_env#0}, isize> (panic.rs:359)
+==993==    by 0x40C2E0F: std::rt::lang_start_internal (rt.rs:171)
+==993==    by 0x403E576: std::rt::lang_start::<()> (library/std/src/rt.rs:205)
+==993==    by 0x403F3ED: main (in /tmp/modul5-target/debug/deps/integration-9195866b2138f597)
+==993== 
+==993== LEAK SUMMARY:
+==993==    definitely lost: 0 bytes in 0 blocks
+==993==    indirectly lost: 0 bytes in 0 blocks
+==993==      possibly lost: 48 bytes in 1 blocks
+==993==    still reachable: 544 bytes in 1 blocks
+==993==         suppressed: 0 bytes in 0 blocks
+==993== 
+==993== For lists of detected and suppressed errors, rerun with: -s
+==993== ERROR SUMMARY: 1 errors from 1 contexts (suppressed: 0 from 0)
